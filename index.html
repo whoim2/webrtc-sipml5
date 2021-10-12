@@ -19,15 +19,6 @@
             padding-bottom: 40px;
         }
 
-        .full-screen {
-            position: absolute;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            overflow: hidden;
-        }
-
         .normal-screen {
             position: relative;
         }
@@ -46,18 +37,6 @@
             -webkit-transition-property: opacity;
             -moz-transition-property: opacity;
             -o-transition-property: opacity;
-            -webkit-transition-duration: 0.5s;
-            -moz-transition-duration: 0.5s;
-            -o-transition-duration: 0.5s;
-        }
-
-        .tab-video,
-        .div-video {
-            width: 100%;
-            height: 0px;
-            -webkit-transition-property: height;
-            -moz-transition-property: height;
-            -o-transition-property: height;
             -webkit-transition-duration: 0.5s;
             -moz-transition-duration: 0.5s;
             -o-transition-duration: 0.5s;
@@ -103,12 +82,6 @@
             -o-transition-duration: 0.5s;
         }
 
-        .previewvideo {
-            position: absolute;
-            width: 88px;
-            height: 72px;
-            margin-top: -42px;
-        }
     </style>
     <link href="./assets/css/bootstrap-responsive.css" rel="stylesheet" />
     <!-- Le fav and touch icons -->
@@ -128,9 +101,8 @@
         var sTransferNumber;
         var oRingTone, oRingbackTone;
         var oSipStack, oSipSessionRegister, oSipSessionCall, oSipSessionTransferCall;
-        var videoRemote, videoLocal, audioRemote;
+        var audioRemote;
         var oNotifICall;
-        var viewVideoLocal, viewVideoRemote, viewLocalScreencast; // <video> (webrtc) or <div> (webrtc4all)
         var oConfigCall;
         var oReadyStateTimer;
         var registered_flag = false;
@@ -338,7 +310,7 @@
                     display_name: txtDisplayName.value,
                     websocket_proxy_url: 'wss://'+realm_v+':8089/ws',
                     outbound_proxy_url: null,
-                    ice_servers: null,
+                    ice_servers: [{ urls: 'stun:stun.l.google.com:19302'}],
                     enable_rtcweb_breaker: true,
                     events_listener: { events: '*', listener: onSipEventStack },
                     enable_early_ims: false, // Must be true unless you're using a real IMS network
